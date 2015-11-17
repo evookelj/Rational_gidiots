@@ -1,3 +1,10 @@
+/*
+Rational Gidiots
+Emma Vukelj and James Cao
+APCS1 pd9
+HW#32 -- Irrationality Stops Here
+2015-11-17
+*/
 public class Rational{
     int p;
     int q;
