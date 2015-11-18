@@ -6,8 +6,8 @@ HW#32 -- Irrationality Stops Here
 2015-11-17
 */
 public class Rational{
-    int p;
-    int q;
+    private int p;
+    private int q;
 
     public static void main(String[] args){
 	//=====CONSTRUCTOR======
