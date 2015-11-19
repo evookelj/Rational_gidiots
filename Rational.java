@@ -43,13 +43,18 @@ public class Rational {
 	System.out.println("\n=====divide() test=====");
 	elaine.divide(jerry);
 	System.out.println("elaine/jerry:\t" + elaine.toString());
-	System.out.println("Note: elaine now equals elaine/jerry");
+	System.out.println("Note: elaine now equals elaine/jerry" +
+			   "\nThis applies to all performed operations.");
 
 	//=====add()======
 	System.out.println("\n=====add() test=====");
 	elaine.add(jerry);
 	System.out.println("elaine+jerry:\t" + elaine.toString());
-	System.out.println("Note: elaine now equals elaine+jerry");
+
+	//=====subtract()=====
+	System.out.println("\n=====subtract() test=====");
+	elaine.subtract(jerry);
+	System.out.println("elaine-jerry:\t" + elaine.toString());
     }
     
     //default constructor, initializes to 0/1
@@ -110,5 +115,18 @@ public class Rational {
 
 	p = thisCopy.p + othCopy.p;
 	q = lcm; //make this into the added vers
+    }
+
+    public void subtract(Rational other) {
+	int lcm = lcm(q, other.q); //denom
+
+	int thisHelp = (lcm/q); //copies of this w right denominator
+	Rational thisCopy = new Rational(p*thisHelp, q*thisHelp);
+
+	int othHelp = (lcm/other.q); //copy of other w right denom
+	Rational othCopy = new Rational(other.p*othHelp, other.q*othHelp);
+
+	p = thisCopy.p - othCopy.p;
+	q = lcm; //update accordingly
     }
 }
