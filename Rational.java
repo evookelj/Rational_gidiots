@@ -56,11 +56,35 @@ public class Rational {
 	elaine.subtract(jerry);
 	System.out.println("elaine-jerry:\t" + elaine.toString());
 
+        //=====compareTo()=====
+        System.out.println("\n=====compareTo() tests=====");
+        System.out.println("  floatValue()s for context:");
+        System.out.println("    elaine: " + elaine.floatValue()
+                           + ",  jerry: " + jerry.floatValue()
+                           + ",  george: " + george.floatValue());
+        System.out.println("elaine.compareTo(jerry):\t" + elaine.compareTo(jerry) +
+                           "\njerry.compareTo(elaine):\t" + jerry.compareTo(elaine) +
+                           "\nelaine.compareTo(george):\t" + elaine.compareTo(george) +
+                           "\ngeorge.compareTo(elaine):\t" + george.compareTo(elaine) +
+                           "\njerry.compareTo(george):\t" + jerry.compareTo(george) +
+                           "\ngeorge.compareTo(jerry):\t" + george.compareTo(jerry) +
+                           "\nelaine.compareTo(elaine):\t" + elaine.compareTo(elaine) +
+                           "\njerry.compareTo(jerry): \t" + jerry.compareTo(jerry) +
+                           "\ngeorge.compareTo(george):\t" + george.compareTo(george));
+
 	//=====gcd()=====
 	System.out.println("\n=====gcd() tests=====");
 	System.out.println("elaine.gcd():\t" + elaine.gcd() +
 			   "\njerry.gcd():\t" + jerry.gcd() +
 			   "\ngeorge.gcd():\t" + george.gcd());
+
+        //=====findGcd()=====
+        System.out.println("\n=====findGcd() tests=====");
+        System.out.println("Rational.findGcd(60, 18):\t" + Rational.findGcd(60, 18) +
+                           "\nRational.findGcd(18, 60):\t" + Rational.findGcd(18, 60) +
+                           "\nRational.findGcd(144, 96):\t" + Rational.findGcd(144, 96) +
+                           "\nRational.findGcd(96, 144):\t" + Rational.findGcd(96, 144) +
+                           "\nRational.findGcd(-100, 68):\t" + Rational.findGcd(-100, 68));
 
 	//=====reduce()=====
 	System.out.println("\n=====reduce() tests=====");
@@ -154,5 +178,20 @@ public class Rational {
 	int gcd = gcd();
 	p = p/gcd;
 	q = q/gcd;
+    }
+
+    public int compareTo(Rational r) {
+        // TODO: Include public getters for denominator
+        // and numerator? This would allow for a direct
+        // and safer int-based comparison
+        double thisValue = this.floatValue();
+        double rValue = r.floatValue();
+        if (thisValue > rValue) {
+            return 1;
+        }
+        if (thisValue < rValue) {
+            return -1;
+        }
+        return 0;
     }
 }
