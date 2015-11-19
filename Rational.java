@@ -55,6 +55,19 @@ public class Rational {
 	System.out.println("\n=====subtract() test=====");
 	elaine.subtract(jerry);
 	System.out.println("elaine-jerry:\t" + elaine.toString());
+
+	//=====gcd()=====
+	System.out.println("\n=====gcd() tests=====");
+	System.out.println("elaine.gcd():\t" + elaine.gcd() +
+			   "\njerry.gcd():\t" + jerry.gcd() +
+			   "\ngeorge.gcd():\t" + george.gcd());
+
+	//=====reduce()=====
+	System.out.println("\n=====reduce() tests=====");
+	elaine.reduce();
+	System.out.println("elaine.reduce():\t" + elaine.toString());
+	jerry.reduce();
+	System.out.println("jerry.reduce():\t" + jerry.toString());
     }
     
     //default constructor, initializes to 0/1
@@ -100,8 +113,11 @@ public class Rational {
 
     //also for adding
     public static int findGcd(int a, int b) {
-	if (b == 0) return a;
-	else return (findGcd (b, a % b));
+	if (b == 0) {
+	    return a;
+	} else {
+	    return (findGcd (b, a % b));
+	}
     }
     
     public void add(Rational other) {
@@ -128,5 +144,15 @@ public class Rational {
 
 	p = thisCopy.p - othCopy.p;
 	q = lcm; //update accordingly
+    }
+
+    public int gcd() {
+	return findGcd(p, q); //bc helper is used in other places so why not
+    }
+
+    public void reduce() {
+	int gcd = gcd();
+	p = p/gcd;
+	q = q/gcd;
     }
 }
