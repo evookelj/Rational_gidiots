@@ -1,15 +1,15 @@
 /*
-Rational Gidiots
-Emma Vukelj and James Cao
+Rational Gidiots: Emma Vukelj and Wilson Berkow
 APCS1 pd9
-HW#32 -- Irrationality Stops Here
+HW#33
 2015-11-17
 */
-public class Rational{
+
+public class Rational {
     private int p;
     private int q;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 	//=====CONSTRUCTOR======
 	System.out.println("\n=====CONSTRUCTOR TESTS=====");
 	//Test overloaded constructor
@@ -43,16 +43,22 @@ public class Rational{
 	System.out.println("\n=====divide() test=====");
 	elaine.divide(jerry);
 	System.out.println("elaine/jerry:\t" + elaine.toString());
-    }
+	System.out.println("Note: elaine now equals elaine/jerry");
 
+	//=====add()======
+	System.out.println("\n=====add() test=====");
+	elaine.add(jerry);
+	System.out.println("elaine+jerry:\t" + elaine.toString());
+	System.out.println("Note: elaine now equals elaine+jerry");
+    }
     
     //default constructor, initializes to 0/1
-    public Rational(){
+    public Rational() {
 	p=0;
 	q=1;
     }
 
-    public Rational(int num, int den){
+    public Rational(int num, int den) {
 	this(); //initialize as 0/1
 	if (den != 0) { //unless given denominator is valid
 	    p = num;
@@ -61,24 +67,48 @@ public class Rational{
     }
 
     //return a half as "1/2"
-    public String toString(){
+    public String toString() {
 	return (p + "/" + q);
     }
 
     //get most precise floatValue of fraction w double
-    public double floatValue(){
+    public double floatValue() {
 	return ( (double)p/q );
     }
 
     //multiply this by that(other)
-    public void multiply(Rational other){
+    public void multiply(Rational other) {
 	p *= other.p;
         q *= other.q;
     }
 
     //works like multiply, except you multiply reciprocal
-    public void divide(Rational other){
+    public void divide(Rational other) {
 	p *= other.q;
 	q *= other.p;
+    }
+
+    //for adding
+    private static int lcm(int a, int b) {
+	return a * (b / findGcd(a, b));
+    }
+
+    //also for adding
+    public static int findGcd(int a, int b) {
+	if (b == 0) return a;
+	else return (findGcd (b, a % b));
+    }
+    
+    public void add(Rational other) {
+	int lcm = lcm(q, other.q); //denominator
+
+	int thisHelp = (lcm/q); //make copies of each w right denominator
+	Rational thisCopy = new Rational(p*thisHelp, q*thisHelp);
+
+	int othHelp = (lcm/other.q);
+	Rational othCopy = new Rational(other.p*othHelp, other.q*othHelp);
+
+	p = thisCopy.p + othCopy.p;
+	q = lcm; //make this into the added vers
     }
 }
