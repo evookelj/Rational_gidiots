@@ -1,197 +1,125 @@
 /*
-Rational Gidiots: Emma Vukelj and Wilson Berkow
-APCS1 pd9
-HW#33
-2015-11-17
+   Team bleh - Nobel Gautam
+   APCS1 pd9
+   HW37 -- Rational Equality
+   2015-11-24
 */
 
-public class Rational {
-    private int p;
-    private int q;
+class Rational
+{
+    private int p, q; //p = numerator; q = denominator (q!=0)
 
-    public static void main(String[] args) {
-	//=====CONSTRUCTOR======
-	System.out.println("\n=====CONSTRUCTOR TESTS=====");
-	//Test overloaded constructor
-	Rational kramer = new Rational(1,0);
-	System.out.println("kramer:\t" + kramer.toString()); //should be 0/1
-
-	//Test overloaded but for legit denominator
-	Rational elaine = new Rational(1, 4);
-	System.out.println("elaine:\t" + elaine.toString()); //should be 1/4
-
-	//Test default constructor
-	Rational george = new Rational();
-	System.out.println("george:\t" + george.toString()); //should be 0/1
-
-	//Make more purposeful fraction
-	Rational jerry = new Rational(1,2);
-	System.out.println("jerry:\t" + jerry.toString());
-
-	//=====floatValue()=====
-	System.out.println("\n=====floatValue() tests=====");
-	System.out.println("jerry.floatValue()\t" + jerry.floatValue());
-	System.out.println("elaine.floatValue()\t" + elaine.floatValue());
-
-	//=====multiply()=====
-	System.out.println("\n=====multiply() test=====");
-	jerry.multiply(elaine);
-	System.out.println("jerry*elaine:\t" + jerry.toString());
-	System.out.println("Note: jerry now equals jerry*elaine");
-
-	//=====divide()=====
-	System.out.println("\n=====divide() test=====");
-	elaine.divide(jerry);
-	System.out.println("elaine/jerry:\t" + elaine.toString());
-	System.out.println("Note: elaine now equals elaine/jerry" +
-			   "\nThis applies to all performed operations.");
-
-	//=====add()======
-	System.out.println("\n=====add() test=====");
-	elaine.add(jerry);
-	System.out.println("elaine+jerry:\t" + elaine.toString());
-
-	//=====subtract()=====
-	System.out.println("\n=====subtract() test=====");
-	elaine.subtract(jerry);
-	System.out.println("elaine-jerry:\t" + elaine.toString());
-
-        //=====compareTo()=====
-        System.out.println("\n=====compareTo() tests=====");
-        System.out.println("  floatValue()s for context:");
-        System.out.println("    elaine: " + elaine.floatValue()
-                           + ",  jerry: " + jerry.floatValue()
-                           + ",  george: " + george.floatValue());
-        System.out.println("elaine.compareTo(jerry):\t" + elaine.compareTo(jerry) +
-                           "\njerry.compareTo(elaine):\t" + jerry.compareTo(elaine) +
-                           "\nelaine.compareTo(george):\t" + elaine.compareTo(george) +
-                           "\ngeorge.compareTo(elaine):\t" + george.compareTo(elaine) +
-                           "\njerry.compareTo(george):\t" + jerry.compareTo(george) +
-                           "\ngeorge.compareTo(jerry):\t" + george.compareTo(jerry) +
-                           "\nelaine.compareTo(elaine):\t" + elaine.compareTo(elaine) +
-                           "\njerry.compareTo(jerry): \t" + jerry.compareTo(jerry) +
-                           "\ngeorge.compareTo(george):\t" + george.compareTo(george));
-
-	//=====gcd()=====
-	System.out.println("\n=====gcd() tests=====");
-	System.out.println("elaine.gcd():\t" + elaine.gcd() +
-			   "\njerry.gcd():\t" + jerry.gcd() +
-			   "\ngeorge.gcd():\t" + george.gcd());
-
-        //=====findGcd()=====
-        System.out.println("\n=====findGcd() tests=====");
-        System.out.println("Rational.findGcd(60, 18):\t" + Rational.findGcd(60, 18) +
-                           "\nRational.findGcd(18, 60):\t" + Rational.findGcd(18, 60) +
-                           "\nRational.findGcd(144, 96):\t" + Rational.findGcd(144, 96) +
-                           "\nRational.findGcd(96, 144):\t" + Rational.findGcd(96, 144) +
-                           "\nRational.findGcd(-100, 68):\t" + Rational.findGcd(-100, 68));
-
-	//=====reduce()=====
-	System.out.println("\n=====reduce() tests=====");
-	elaine.reduce();
-	System.out.println("elaine.reduce():\t" + elaine.toString());
-	jerry.reduce();
-	System.out.println("jerry.reduce():\t" + jerry.toString());
-    }
-    
-    //default constructor, initializes to 0/1
-    public Rational() {
-	p=0;
-	q=1;
+    //constructors
+    public  Rational()
+    {
+        p = 0;
+        q = 1;
     }
 
-    public Rational(int num, int den) {
-	this(); //initialize as 0/1
-	if (den != 0) { //unless given denominator is valid
-	    p = num;
-	    q = den;
-	}
-    }
-
-    //return a half as "1/2"
-    public String toString() {
-	return (p + "/" + q);
-    }
-
-    //get most precise floatValue of fraction w double
-    public double floatValue() {
-	return ( (double)p/q );
-    }
-
-    //multiply this by that(other)
-    public void multiply(Rational other) {
-	p *= other.p;
-        q *= other.q;
-    }
-
-    //works like multiply, except you multiply reciprocal
-    public void divide(Rational other) {
-	p *= other.q;
-	q *= other.p;
-    }
-
-    //for adding
-    private static int lcm(int a, int b) {
-	return a * (b / findGcd(a, b));
-    }
-
-    //also for adding
-    public static int findGcd(int a, int b) {
-	if (b == 0) {
-	    return a;
-	} else {
-	    return (findGcd (b, a % b));
-	}
-    }
-    
-    public void add(Rational other) {
-	int lcm = lcm(q, other.q); //denominator
-
-	int thisHelp = (lcm/q); //make copies of each w right denominator
-	Rational thisCopy = new Rational(p*thisHelp, q*thisHelp);
-
-	int othHelp = (lcm/other.q);
-	Rational othCopy = new Rational(other.p*othHelp, other.q*othHelp);
-
-	p = thisCopy.p + othCopy.p;
-	q = lcm; //make this into the added vers
-    }
-
-    public void subtract(Rational other) {
-	int lcm = lcm(q, other.q); //denom
-
-	int thisHelp = (lcm/q); //copies of this w right denominator
-	Rational thisCopy = new Rational(p*thisHelp, q*thisHelp);
-
-	int othHelp = (lcm/other.q); //copy of other w right denom
-	Rational othCopy = new Rational(other.p*othHelp, other.q*othHelp);
-
-	p = thisCopy.p - othCopy.p;
-	q = lcm; //update accordingly
-    }
-
-    public int gcd() {
-	return findGcd(p, q); //bc helper is used in other places so why not
-    }
-
-    public void reduce() {
-	int gcd = gcd();
-	p = p/gcd;
-	q = q/gcd;
-    }
-
-    public int compareTo(Rational r) {
-        // TODO: Include public getters for denominator
-        // and numerator? This would allow for a direct
-        // and safer int-based comparison
-        double thisValue = this.floatValue();
-        double rValue = r.floatValue();
-        if (thisValue > rValue) {
-            return 1;
+    public Rational(int numerator, int denominator)
+    {
+        p = numerator;
+        q = denominator;
+        if (q==0)
+        {
+            p = 0;
+            q = 1;
+            System.out.println("Invalid demoninator submitted. Number set to 0/1");
         }
-        if (thisValue < rValue) {
-            return -1;
-        }
-        return 0;
+        reduce();
+    }
+
+    //accessors
+    public int getNumerator()
+    {
+        return p;
+    }
+
+    public int getDenominator()
+    {
+        return q;
+    }
+
+    //methods
+    public String toString()
+    {
+        return p + "/" + q;
+    }
+
+    public double floatValue()
+    {
+        return (double)p / q;
+    }
+
+    public static int gcd(int a, int b)
+    {
+        if (b == 0) return a;
+        return gcd(b, a%b);
+    }
+    public void reduce()
+    {
+        int g = gcd(p, q);
+        p /= g;
+        q /= g;
+    }
+    public int compareTo(Rational other)
+    {
+        if (floatValue() == other.floatValue()) return 0;
+        if (floatValue() < other.floatValue()) return -1;
+        return 1;
+    }
+
+    public void multiply(Rational r)
+    {
+        this.p *= r.getNumerator();
+        this.q *= r.getDenominator();
+        reduce();
+    }
+
+
+    public void divide(Rational r)
+    {
+        this.p *= r.getDenominator();
+        this.q *= r.getNumerator();
+        reduce();
+    }
+
+    public void add(Rational r)
+    {
+        this.p = this.p * r.q + this.q * r.p;
+        this.q *= r.q;
+        reduce();
+    }
+
+    public void subtract(Rational r)
+    {
+        this.p = this.p * r.q - this.q * r.p;
+        this.q *= r.q;
+        reduce();
+    }
+
+    public boolean equals(Object other)
+    {
+        if (other != null && other instanceof Rational)
+            return p == ((Rational)other).p
+                && q == ((Rational)other).q;
+        return false;
+    }
+
+    // main
+    public static void main(String[] args)
+    {
+        Rational r = new Rational(17,2);
+        Rational s = new Rational(1,31);
+        Rational w = new Rational();
+
+        System.out.println(r + ", " + s + ", " + w);
+
+        r.add(s);
+        s.subtract(new Rational(1,4));
+
+        System.out.println(r);
+        System.out.println(s);
     }
 }
+
