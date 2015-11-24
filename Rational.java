@@ -9,6 +9,31 @@ class Rational
 {
     private int p, q; //p = numerator; q = denominator (q!=0)
 
+    public static void main(String[] args) {
+	//=====CONSTRUCTOR======
+	System.out.println("\n=====CONSTRUCTOR TESTS=====");
+	//Test overloaded constructor
+	Rational kramer = new Rational(1,0);
+	System.out.println("kramer:\t" + kramer.toString()); //should be 0/1
+
+	//Test overloaded but for legit denominator
+	Rational elaine = new Rational(1, 4);
+	System.out.println("elaine:\t" + elaine.toString()); //should be 1/4
+
+	//Test default constructor
+	Rational george = new Rational();
+	System.out.println("george:\t" + george.toString()); //should be 0/1
+
+	//Make more purposeful fraction
+	Rational jerry = new Rational(1,2);
+	System.out.println("jerry:\t" + jerry.toString());
+
+	//=====equals()=====
+	System.out.println("\n=====equals() tests=====" + 
+			   "\nelaine.equals(jerry):\t" + elaine.equals(jerry) +
+			   "\nkramer.equals(george):\t" + kramer.equals(george));
+    }
+    
     //constructors
     public  Rational()
     {
@@ -104,22 +129,6 @@ class Rational
             return p == ((Rational)other).p
                 && q == ((Rational)other).q;
         return false;
-    }
-
-    // main
-    public static void main(String[] args)
-    {
-        Rational r = new Rational(17,2);
-        Rational s = new Rational(1,31);
-        Rational w = new Rational();
-
-        System.out.println(r + ", " + s + ", " + w);
-
-        r.add(s);
-        s.subtract(new Rational(1,4));
-
-        System.out.println(r);
-        System.out.println(s);
     }
 }
 
